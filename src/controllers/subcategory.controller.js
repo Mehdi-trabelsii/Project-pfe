@@ -1,6 +1,7 @@
 import Subcategory from '../models/subcategory.model';
 import ApiResponse from '../utils/APIResponse';
 import httpStatus from 'http-status';
+import { omit } from 'lodash';
 
 
 export function get(req, res) {
@@ -37,7 +38,7 @@ export function list(req, res, next) {
       .deleteOne()
       .then(() => res.status(httpStatus.NO_CONTENT).end())
       .catch(e => next(e));
-      console.log(done);
+
   }
 
   export function update(req, res, next) {

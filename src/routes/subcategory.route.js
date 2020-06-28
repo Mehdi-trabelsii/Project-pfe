@@ -6,6 +6,6 @@ import { listsubcategories,createsubcategory } from '../validations/subcategory.
 const router = express.Router();
 router.route('/list').get(validate(listsubcategories),controller.list);
 router.route('/create').post(validate(createsubcategory), controller.add);
-router.route('/delete').delete(controller.remove);
-router.route('/update').patch(controller.update);
+router.route('/delete/:id').delete(controller.remove);
+router.route('/update/:id').patch(controller.update);
 export default router;
