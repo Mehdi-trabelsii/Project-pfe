@@ -7,7 +7,7 @@ import APIError from '../utils/APIError';
 
 export function get(req, res) {
     return new ApiResponse(res).success(() => {
-      return req.locals.product.transform();
+      return req.locals.cart.transform();
     });
   }
 
