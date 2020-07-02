@@ -8,5 +8,6 @@ router.route('/listcategories').get(validate(listcategories), controller.list);
 router.route('/createcategory').post(validate(createcategory), controller.add);
 router.route('/list/:id').get(controller.get);
 router.route('/delete/:id').delete(controller.remove);
+router.route('/update/:id').patch(controller.update);
 
 export default router;

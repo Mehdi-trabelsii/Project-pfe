@@ -5,6 +5,11 @@ import Product from '../models/product.model';
 import cart from '../models/cart.model';
 import APIError from '../utils/APIError';
 
+export function get(req, res) {
+    return new ApiResponse(res).success(() => {
+      return req.locals.product.transform();
+    });
+  }
 
 export async function add(req, res, next) {
 
@@ -15,10 +20,7 @@ export async function add(req, res, next) {
         if (!cart) {
             cart = await new Cart({ user: user._id, products: req.body.products }).save()
             return cart
-
         }
-
-
         let { products } = req.body
         const isExist = products.find(product =>
             cart.products.find((cartProduct) =>{

@@ -2,6 +2,15 @@ import Review from '../models/review.model';
 import Reply from '../models/reply.model';
 
 
+
+export function get(req, res) {
+    
+    return new ApiResponse(res).success(() => {
+      const  reply  = Reply.findById(req.params.id);
+      return reply;
+    });
+  }
+
 export async function add(req, res, next) {
 
     const review = await Review.findById(req.params.id)

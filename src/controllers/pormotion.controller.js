@@ -37,3 +37,14 @@ export function remove(req, res, next) {
     .catch(e => next(e));
     console.log(done);
 }
+export function update(req, res, next) {
+  new ApiResponse(res).success(
+    async () => {
+      
+      const updatedpromotion = await Promotion.findByIdAndUpdate(req.params.id,omit(req.body),{new:true});
+
+      return (await updatedpromotion).transform();
+    },
+
+  );
+  }

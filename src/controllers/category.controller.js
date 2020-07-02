@@ -37,3 +37,15 @@ export function list(req, res, next) {
       .then(() => res.status(httpStatus.NO_CONTENT).end())
       .catch(e => next(e));
   }
+  
+  export function update(req, res, next) {
+    new ApiResponse(res).success(
+      async () => {
+        
+        const updatedcategory = await Category.findByIdAndUpdate(req.params.id,omit(req.body),{new:true});
+
+        return (await updatedcategory).transform();
+      },
+  
+    );
+    }

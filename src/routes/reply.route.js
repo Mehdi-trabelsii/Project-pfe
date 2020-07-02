@@ -6,6 +6,7 @@ import { createreply } from '../validations/reply.validation';
 const router = express.Router();
 
 router.route('/review/:id').post(authorize(LOGGED_USER), validate(createreply),controller.add);
+router.route('/list/:id').get(controller.get);
 
 export default router;
 

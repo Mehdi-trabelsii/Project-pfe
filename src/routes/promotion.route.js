@@ -9,5 +9,6 @@ const router = express.Router();
 router.route('/list').get(validate(listPromos),controller.list);
 router.route('/create').post(validate(createPromos),controller.add);
 router.route('/delete/:id').delete(controller.remove);
+router.route('/update/:id').patch(controller.update);
 
 export default router;
