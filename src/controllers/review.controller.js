@@ -14,8 +14,9 @@ export function get(req, res) {
   export function list(req, res, next) {
     return new ApiResponse(res).success(
       async () => {
-        const reviews = await Review.list(req.query);
+        const reviews = await Review.find({product:req.params.id});
         const transformedReviews = reviews.map(reviews => reviews.transform());
+        console.log(transformedReviews);
         return transformedReviews;
       },
       (error) => next(error),
@@ -48,6 +49,14 @@ export async function add(req, res, next) {
     review.save();
     res.status(201);
     res.json(review);
+}
+
+export function remove(req, res, next) {
+  const  review  = Reply.findById(req.params.id);
+  review
+    .deleteOne()
+    .then(() => res.status(httpStatus.NO_CONTENT).end())
+    .catch(e => next(e));
 }
 
 

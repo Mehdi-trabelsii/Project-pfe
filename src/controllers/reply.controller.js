@@ -4,7 +4,6 @@ import Reply from '../models/reply.model';
 
 
 export function get(req, res) {
-    
     return new ApiResponse(res).success(() => {
       const  reply  = Reply.findById(req.params.id);
       return reply;
@@ -28,5 +27,12 @@ export async function add(req, res, next) {
     await review.update({ $push: {replies:reply.id} })
     res.status(201);
     res.json(reply);
+}
+export function remove(req, res, next) {
+  const  reply  = Reply.findById(req.params.id);
+  reply
+    .deleteOne()
+    .then(() => res.status(httpStatus.NO_CONTENT).end())
+    .catch(e => next(e));
 }
 

@@ -6,6 +6,10 @@ const reviewSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    product:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product'
+    },
     postedOn: Date,
     rating: {
         type: Number,
@@ -27,7 +31,7 @@ reviewSchema.pre('save', function (next) {
 reviewSchema.method({
     transform() {
         const transformed = {};
-        const fields = ['_id', 'postedon', 'rating', 'review', 'user','replies'];
+        const fields = ['_id','product', 'postedon', 'rating', 'review', 'user','replies'];
 
         fields.forEach((field) => {
             (transformed)[field] = this[field];

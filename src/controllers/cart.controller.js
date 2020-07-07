@@ -1,13 +1,16 @@
 import ApiResponse from '../utils/APIResponse';
-import httpStatus from 'http-status';
 import Cart from '../models/cart.model';
-import Product from '../models/product.model';
-import cart from '../models/cart.model';
 import APIError from '../utils/APIError';
 
-export function get(req, res) {
-    return new ApiResponse(res).success(() => {
-      return req.locals.cart.transform();
+export  function get(req, res) {
+    return new ApiResponse(res).success(async() => {
+        try{     const{ user } = req.locals;
+        let cart = await Cart.findOne({ user: user._id })
+        console.log(cart);
+    } catch(error){
+        console.log('this is the error:'+ error);
+    }
+
     });
   }
 
@@ -44,3 +47,14 @@ export async function add(req, res, next) {
         return await Cart.findById(cart._id)
     })
 }
+
+export function update(req, res, next) {
+    new ApiResponse(res).success(
+      async () => {
+        
+        const updatedcart = await Cart.findByIdAndUpdate(req.params.id,omit(req.body),{new:true});
+
+        return (await updatedcart).transform();
+      },
+    );
+    }
