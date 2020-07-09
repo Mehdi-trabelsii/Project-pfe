@@ -114,7 +114,7 @@ productSchema.statics = {
             .sort({ createdAt: -1 })
             .skip(perPage * (page - 1))
             .limit(perPage)
-            .populate("promotion").populate("reviews")
+            .populate("promotion")
             .exec();
     }
 }

@@ -43,7 +43,8 @@ export async function add(req, res, next) {
     var review = new Review(req.body);
     review.postedOn = Date.now();
 
-    review.user = req.locals.user._id;
+    review.user = req.locals.user._id;  
+    review.product =req.params.id;
 
     product.reviews.push(review);
     review.save();
