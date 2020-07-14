@@ -14,9 +14,13 @@ export function get(req, res) {
   export function list(req, res, next) {
     return new ApiResponse(res).success(
       async () => {
-        const reviews = await Review.find({product:req.params.id});
-        const transformedReviews = reviews.map(reviews => reviews.transform());
-        console.log(transformedReviews);
+        const reviews = await Review.find({product:req.params.id}).populate('user');
+        const transformedReviews = reviews.map(reviews =>{
+          let review = reviews.transform();
+          console.log(review.user.password);
+         review.user=review.user.transform();
+          return review
+        });
         return transformedReviews;
       },
       (error) => next(error),
@@ -39,10 +43,8 @@ export async function add(req, res, next) {
             return res.json({status:'INVALID_REQUEST',errorCode:'you already reviewed this product'});
         }
     }
-    
     var review = new Review(req.body);
     review.postedOn =  Date.now();
-
     review.user = req.locals.user._id;  
     review.product =req.params.id;
     review.save();

@@ -29,13 +29,6 @@ cartSchema.method({
     },
 
 })
-// cartSchema.pre('save', function (next) {
-// for (let i = 0; i < this.products.length; i++) {
-//     this.totalquantity=this.totalquantity+1
-// }
-// next();
-// });
-
 
 const cart = mongoose.model('Cart', cartSchema);
 export default cart;

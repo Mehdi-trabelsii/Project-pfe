@@ -1,10 +1,14 @@
 import mongoose from 'mongoose';
 import { list, get } from '../utils/helpers'
+import { string } from '@hapi/joi';
 
 const reviewSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    },
+    usern:{
+        type:String
     },
     product:{
         type: mongoose.Schema.Types.ObjectId,
@@ -30,7 +34,7 @@ reviewSchema.pre('save', function (next) {
 reviewSchema.method({
     transform() {
         const transformed = {};
-        const fields = ['_id','product', 'postedon', 'rating', 'review', 'user','replies'];
+        const fields = ['_id','product', 'postedon', 'rating', 'review', 'user','replies','usern'];
 
         fields.forEach((field) => {
             (transformed)[field] = this[field];
@@ -42,7 +46,15 @@ reviewSchema.method({
 })
 reviewSchema.statics={
     get,
-    list,
+    async list({ page = 1, perPage = 30, ...rest }) {
+        const options = omitBy(rest, isNil);
+        return this.find(options)
+            .sort({ createdAt: -1 })
+            .skip(perPage * (page - 1))
+            .limit(perPage)
+            .populate("user")
+            .exec();
+    },
   }
 var Review = mongoose.model('Review', reviewSchema);
 export default Review;

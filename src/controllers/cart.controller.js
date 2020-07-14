@@ -2,17 +2,18 @@ import ApiResponse from '../utils/APIResponse';
 import Cart from '../models/cart.model';
 import APIError from '../utils/APIError';
 
-export  function get(req, res) {
-    return new ApiResponse(res).success(async() => {
-        try{     const{ user } = req.locals;
-        let cart = await Cart.findOne({ user: user._id })
-        console.log(cart);
-    } catch(error){
-        console.log('this is the error:'+ error);
-    }
+export function get(req, res) {
+    return new ApiResponse(res).success( async () => {
+        try {
+            const { user } = req.locals;
+            let cart = await Cart.findOne({ user: user._id })
+            return cart;
+        } catch (error) {
+            console.log('this is the error:' + error);
+        }
 
     });
-  }
+}
 
 export async function add(req, res, next) {
 
@@ -26,16 +27,17 @@ export async function add(req, res, next) {
         }
         let { products } = req.body
         const isExist = products.find(product =>
-            cart.products.find((cartProduct) =>{
+            cart.products.find((cartProduct) => {
                 console.log(cartProduct)
                 console.log(product)
-                return product.product.toString() === cartProduct.product.toString() } )
+                return product.product.toString() === cartProduct.product.toString()
+            })
         )
 
         if (isExist) {
             throw new APIError({
                 status: 'BAD_REQUEST',
-                statusMessage: 'INVALID_REQUEST', 
+                statusMessage: 'INVALID_REQUEST',
                 errorCode: 'product already exists',
             })
         }
@@ -50,11 +52,11 @@ export async function add(req, res, next) {
 
 export function update(req, res, next) {
     new ApiResponse(res).success(
-      async () => {
-        
-        const updatedcart = await Cart.findByIdAndUpdate(req.params.id,omit(req.body),{new:true});
+        async () => {
 
-        return (await updatedcart).transform();
-      },
+            const updatedcart = await Cart.findByIdAndUpdate(req.params.id, omit(req.body), { new: true });
+
+            return (await updatedcart).transform();
+        },
     );
-    }
+}
