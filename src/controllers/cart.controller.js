@@ -3,17 +3,14 @@ import Cart from '../models/cart.model';
 import APIError from '../utils/APIError';
 
 export function get(req, res) {
-    return new ApiResponse(res).success( async () => {
-        try {
-            const { user } = req.locals;
-            let cart = await Cart.findOne({ user: user._id })
-            return cart;
-        } catch (error) {
-            console.log('this is the error:' + error);
-        }
+    return new ApiResponse(res).success(async () => {
 
+        const { user } = req.locals;
+        let cart = await Cart.findOne({ user: user._id }).populate('products.product');
+        console.log(cart)
+        return cart.transform();
     });
-}
+  }
 
 export async function add(req, res, next) {
 

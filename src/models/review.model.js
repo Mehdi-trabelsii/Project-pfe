@@ -7,9 +7,7 @@ const reviewSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    usern:{
-        type:String
-    },
+
     product:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product'
@@ -46,15 +44,7 @@ reviewSchema.method({
 })
 reviewSchema.statics={
     get,
-    async list({ page = 1, perPage = 30, ...rest }) {
-        const options = omitBy(rest, isNil);
-        return this.find(options)
-            .sort({ createdAt: -1 })
-            .skip(perPage * (page - 1))
-            .limit(perPage)
-            .populate("user")
-            .exec();
-    },
+    list,
   }
 var Review = mongoose.model('Review', reviewSchema);
 export default Review;
