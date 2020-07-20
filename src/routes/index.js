@@ -7,6 +7,7 @@ import promotionRoutes from'./promotion.route'
 import categoryRoutes from './category.route'
 import subcategoryRoutes from './subcategory.route';
 import reviewRoutes from'./review.route';
+import orderRoutes from'./order.route';
 import replyRoutes from'./reply.route';
 import cartRoutes from'./cart.route';
 import uploadIcon from '../utils/helpers';
@@ -25,10 +26,12 @@ router.use('/products',productRoutes);
 router.use('/reviews',reviewRoutes);
 router.use('/replies',replyRoutes);
 router.use('/cart',cartRoutes);
+router.use('/order', orderRoutes);
 router.use('/categories',categoryRoutes);
 router.use('/subcategories',subcategoryRoutes);
 router.use('/users', userRoutes);
 router.use('/auth', authRoutes);
+
 router.post('/upload',uploadIcon.single("image"),uploadcontroller);
 
 router.use('/images',express.static(path.join(__dirname,"../../public")))

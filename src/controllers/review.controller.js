@@ -14,7 +14,7 @@ export function get(req, res) {
 export function list(req, res, next) {
   return new ApiResponse(res).success(
     async () => {
-      const reviews = await Review.find({ product: req.params.id }).populate('user');
+      const reviews = await Review.find({ product: req.params.id }).populate('user').populate('replies');
       const transformedReviews = reviews.map(reviews => {
         let review = reviews.transform();
         review.user = review.user.transform();

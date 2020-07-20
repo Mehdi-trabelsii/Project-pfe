@@ -1,6 +1,22 @@
 import Review from '../models/review.model';
 import Reply from '../models/reply.model';
+import ApiResponse from '../utils/APIResponse'
 
+
+// export function list(req, res, next) {
+//   return new ApiResponse(res).success(
+//     async () => {
+//       const replies = await Review.findById(req.params.id);
+//       const transformedReplies = replies.map(replies => {
+//         let reply = replies.transform();
+//         reply.user = reply.user.transform();
+//         return reply
+//       });
+//       return transformedReplies;
+//     },
+//     (error) => next(error),
+//   );
+// }
 
 
 export function get(req, res) {
@@ -28,6 +44,8 @@ export async function add(req, res, next) {
     res.status(201);
     res.json(reply);
 }
+
+
 export function remove(req, res, next) {
   const  reply  = Reply.findById(req.params.id);
   reply
