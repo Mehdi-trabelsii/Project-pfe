@@ -4,6 +4,7 @@ import validate from '../middlewares/validation';
 import { listsubcategories,createsubcategory } from '../validations/subcategory.validation';
 
 const router = express.Router();
+router.route('/get/:id').get(validate(listsubcategories),controller.get);
 router.route('/list').get(validate(listsubcategories),controller.list);
 router.route('/create').post(validate(createsubcategory), controller.add);
 router.route('/delete/:id').delete(controller.remove);

@@ -4,10 +4,11 @@ import httpStatus from 'http-status';
 
 
 export function get(req, res) {
-    return new ApiResponse(res).success(() => {
-      return req.locals.product.transform();
-    });
-  }
+  return new ApiResponse(res).success(() => {
+    const category = Category.findById(req.params.id);
+    return category;
+  });
+}
 
   export function add(req,res) {
     async function addproduct(){

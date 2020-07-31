@@ -5,10 +5,11 @@ import { omit } from 'lodash';
 
 
 export function get(req, res) {
-    return new ApiResponse(res).success(() => {
-      return req.locals.subcategory.transform();
-    });
-  }
+  return new ApiResponse(res).success(() => {
+    const subcategory = Subcategory.findById(req.params.id);
+    return subcategory;
+  });
+}
 
   export function add(req,res) {
     async function addsubcategory(){

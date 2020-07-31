@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.route('/create').post(authorize(LOGGED_USER),controller.create);
 router.route('/list/:id').get(controller.get)
-router.route('/list').get(authorize(LOGGED_USER), controller.list)
+router.route('/list').get(authorize(LOGGED_USER),controller.list)
 
 
 export default router;

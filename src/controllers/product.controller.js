@@ -1,7 +1,8 @@
 import Product from '../models/product.model';
-import { omit } from 'lodash';
+import { omit, fromPairs } from 'lodash';
 import ApiResponse from '../utils/APIResponse';
 import product from '../models/product.model';
+import Popular from '../models/popular.model';
 import httpStatus from 'http-status';
 
 

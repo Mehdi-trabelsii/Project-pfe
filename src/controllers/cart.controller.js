@@ -4,7 +4,6 @@ import APIError from '../utils/APIError';
 
 export function get(req, res) {
     return new ApiResponse(res).success(async () => {
-
         const { user } = req.locals;
         let cart = await Cart.findOne({ user: user._id }).populate('products.product');
         console.log(cart)
