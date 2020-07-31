@@ -12,6 +12,35 @@ export function get(req, res) {
     return product;
   });
 }
+export function listpersubcat(req, res, next) {
+  return new ApiResponse(res).success(
+    async () => {
+      const products = await Product.find({ subcategory: req.params.id });
+      const transformedProducts = products.map(products => {
+        let product = products.transform();
+
+        return product
+      });
+      return transformedProducts;
+    },
+    (error) => next(error),
+  );
+}
+
+export function listpercat(req, res, next) {
+  return new ApiResponse(res).success(
+    async () => {
+      const products = await Product.find({ category: req.params.id });
+      const transformedProducts = products.map(products => {
+        let product = products.transform();
+
+        return product
+      });
+      return transformedProducts;
+    },
+    (error) => next(error),
+  );
+}
 
 export function add(req,res) {
     async function addproduct(){

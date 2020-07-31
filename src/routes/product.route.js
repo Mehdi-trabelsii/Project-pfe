@@ -4,6 +4,8 @@ import validate from '../middlewares/validation';
 import { listProducts,createProduct,updateProduct } from '../validations/product.validation'
 
 const router = express.Router();
+router.route('/listPerCat/:id').get(validate(listProducts),controller.listpercat);
+router.route('/listPerSubCat/:id').get(validate(listProducts),controller.listpersubcat);
 router.route('/list').get(validate(listProducts), controller.list);
 router.route('/list/:id').get(controller.get);
 router.route('/create').post(validate(createProduct), controller.add);
