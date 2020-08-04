@@ -7,21 +7,21 @@ const popularshcema = new mongoose.Schema(
             ref: 'Product'
         },
 
-        users:[{
-            type:mongoose.Schema.Types.ObjectId,
-            ref:'user'
+        users: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'user'
         }],
-        poplarity:{
-            type:Number,
-            default:0
+        poplarity: {
+            type: Number,
+            default: 0
         }
     }
 )
 
 popularshcema.method({
-    transform(){
+    transform() {
         const transformed = {};
-        const fields =['_id','product','users','poplarity']
+        const fields = ['_id', 'product', 'users', 'poplarity']
 
         fields.forEach((field) => {
             (transformed)[field] = this[field];
@@ -31,5 +31,5 @@ popularshcema.method({
     },
 
 })
-const popular = mongoose.model('Popular',popularshcema);
+const popular = mongoose.model('Popular', popularshcema);
 export default popular;

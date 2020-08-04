@@ -11,6 +11,7 @@ export const listProducts = {
       price: Joi.number(),
       images: Joi.array(),
       promotion : Joi.string(),
+      characteristics: Joi.array(),
     },
   };
 
@@ -29,6 +30,7 @@ export const updateProduct = {
       description :Joi.string()
       .min(28)
       .max(400), 
+      characteristics: Joi.array().required(),
     }
   };
   //POST /v1/procuts/createproduct

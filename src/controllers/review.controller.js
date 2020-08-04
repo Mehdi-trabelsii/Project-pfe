@@ -35,7 +35,7 @@ export async function add(req, res, next) {
   if (!product) {
     next();
   }
-  const reviews =await Review.find({ product: req.params.id })
+  const reviews = await Review.find({ product: req.params.id })
   for (var i = 0; i < reviews.length; i++) {
     if (reviews[i].user.toJSON() === req.user._id.toJSON()) {
       res.status = 401;

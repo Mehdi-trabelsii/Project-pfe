@@ -19,11 +19,11 @@ router
 
   .post(authorize('admin'), validate(createUser), controller.create);
 
-  router
+router
   .route('/profile')
   .get(authorize(LOGGED_USER), controller.loggedIn);
 
-  router
+router
   .route('/:userId')
   .get(authorize(LOGGED_USER), controller.get)
 
@@ -31,5 +31,5 @@ router
   .patch(authorize(LOGGED_USER), validate(updateUser), controller.update)
   .delete(authorize(LOGGED_USER), controller.remove);
 
-  export default router;
+export default router;
 

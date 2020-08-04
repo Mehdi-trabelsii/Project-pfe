@@ -28,8 +28,8 @@ export function create(req, res, next) {
         async () => {
             const { user } = req.locals;
             let cart = await Cart.findOne({ user: user._id })
-            var order = new Order({ products: cart.products, date:Date.now(), adresse: req.body.adresse })
-            await cart.update({products : []})
+            var order = new Order({ products: cart.products, date: Date.now(), adresse: req.body.adresse })
+            await cart.update({ products: [] })
             console.log(cart)
             await order.save()
             return order;

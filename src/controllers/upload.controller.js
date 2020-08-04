@@ -6,7 +6,7 @@ export function uploadcontroller(req, res) {
         if (file) {
             url = `${"http://localhost:5000"}/v1/images/${file.filename}`;
         }
-        res.json({url});
+        res.json({ url });
     } catch (error) {
         next(error);
     }

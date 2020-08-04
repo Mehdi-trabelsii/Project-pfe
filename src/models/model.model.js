@@ -1,11 +1,11 @@
 import mongoose, { Model, Document } from 'mongoose';
 const modelSchema = new mongoose.Schema(
     {
-        label :{
-            type:String,
-            required:true,
-            unique:true,
-            maxlength:128,
+        label: {
+            type: String,
+            required: true,
+            unique: true,
+            maxlength: 128,
         },
     }
 );

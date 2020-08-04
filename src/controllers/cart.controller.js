@@ -9,7 +9,7 @@ export function get(req, res) {
         console.log(cart)
         return cart.transform();
     });
-  }
+}
 
 export async function add(req, res, next) {
 
@@ -44,6 +44,11 @@ export async function add(req, res, next) {
         await cart.update({ products })
         return await Cart.findById(cart._id)
     })
+}
+export function deleteprod(req, res, next) {
+    return new ApiResponse(res).success(
+
+    )
 }
 
 export function update(req, res, next) {

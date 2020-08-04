@@ -50,7 +50,7 @@ const productSchema = new mongoose.Schema(
         // },
         category: {
             type: mongoose.Schema.Types.ObjectId,
-            ref:'Category',
+            ref: 'Category',
             required: true,
         },
         subcategory: {
@@ -58,30 +58,34 @@ const productSchema = new mongoose.Schema(
             ref: 'Subcategory'
         },
         reviews: [{
-            type:mongoose.Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'Review'
-          }]
+        }],
+        charactestics:[{
+            label:String,
+            value:String
+        }]
     },
 
 
 
 );
 
-productSchema.virtual('overallRating').get(function() {
+productSchema.virtual('overallRating').get(function () {
     var ratingsTotal = 0;
     var result = 0;
     if (this.reviews) {
-      for (var i = 0; i < this.reviews.length; i++) {
-        ratingsTotal += this.reviews[i].rating;
-      }
-      result = Math.round(ratingsTotal / this.reviews.length);
+        for (var i = 0; i < this.reviews.length; i++) {
+            ratingsTotal += this.reviews[i].rating;
+        }
+        result = Math.round(ratingsTotal / this.reviews.length);
     }
     return result;
-  });
+});
 productSchema.method({
     transform() {
         const transformed = {};
-        const fields = ['_id', 'label', 'price', 'quantity', 'credit', 'description', 'images', 'marque', 'subcategory', 'promotion','category','reviews'];
+        const fields = ['_id', 'label', 'price', 'quantity', 'credit', 'description', 'images', 'marque', 'subcategory', 'promotion', 'category', 'reviews'];
 
         fields.forEach((field) => {
             (transformed)[field] = this[field];
@@ -107,11 +111,37 @@ productSchema.statics = {
         const options = omitBy(rest, isNil);
         console.log(options.promotion);
         if (options.promotion) {
-            options.promotion = { $exists: true ,$nin: null }
+            options.promotion = { $exists: true, $nin: null }
         }
 
         return this.find(options)
-            .sort({ createdAt: -1 })
+            .sort({ CreatedAt: -1 })
+            .skip(perPage * (page - 1))
+            .limit(perPage)
+            .populate("promotion")
+            .exec();
+    },
+    async listdesc({ page = 1, perPage = 30, ...rest }) {
+        const options = omitBy(rest, isNil);
+        if (options.promotion) {
+            options.promotion = { $exists: true, $nin: null }
+        }
+
+        return this.find(options)
+            .sort({ price: -1 })
+            .skip(perPage * (page - 1))
+            .limit(perPage)
+            .populate("promotion")
+            .exec();
+    },
+    async listasc({ page = 1, perPage = 30, ...rest }) {
+        const options = omitBy(rest, isNil);
+        if (options.promotion) {
+            options.promotion = { $exists: true, $nin: null }
+        }
+
+        return this.find(options)
+            .sort({ price: 1 })
             .skip(perPage * (page - 1))
             .limit(perPage)
             .populate("promotion")

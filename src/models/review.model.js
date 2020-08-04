@@ -43,7 +43,7 @@ reviewSchema.method({
 })
 reviewSchema.statics = {
     get,
-    list,   
+    list,
 }
 var Review = mongoose.model('Review', reviewSchema);
 export default Review;
