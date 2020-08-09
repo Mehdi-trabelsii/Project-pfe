@@ -7,8 +7,32 @@ import httpStatus from 'http-status';
 
 
 export function get(req, res) {
-  return new ApiResponse(res).success(() => {
-    const product = Product.findById(req.params.id);
+  return new ApiResponse(res).success(async () => {
+    const product = await Product.findById(req.params.id);
+    const { user } = req.locals;
+    const Exist = await Popular.findOne({ product: req.params.id })
+    if (Exist) {
+      for (var i = 0; i < Exist.users.length; i++) {
+        if (Exist.users[i].toJSON() === user._id.toJSON()) {
+          return product;
+
+        }
+
+      }
+      console.log("am here also");
+      Exist.popularity = Exist.users.length + 1;
+      Exist.users.push(user._id);
+      await Exist.save();
+
+    }
+    else {
+      var popular = new Popular();
+      popular.product = req.params.id;
+      popular.popularity = 1
+      await popular.save();
+      await popular.update({ $push: { users: user._id } })
+
+    }
     return product;
   });
 }

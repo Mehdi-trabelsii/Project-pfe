@@ -24,8 +24,6 @@ export async function add(req, res, next) {
         let { products } = req.body
         const isExist = products.find(product =>
             cart.products.find((cartProduct) => {
-                console.log(cartProduct)
-                console.log(product)
                 return product.product.toString() === cartProduct.product.toString()
             })
         )

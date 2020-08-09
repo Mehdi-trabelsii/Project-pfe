@@ -1,6 +1,8 @@
 import express from 'express';
 import * as controller from '../controllers/product.controller'
+import * as controllerpop from '../controllers/popular.controller';
 import validate from '../middlewares/validation';
+import { authorize, LOGGED_USER } from '../middlewares/auth';
 import { listProducts, createProduct, updateProduct } from '../validations/product.validation'
 
 const router = express.Router();
@@ -9,9 +11,10 @@ router.route('/listPerSubCat/:id').get(validate(listProducts), controller.listpe
 router.route('/list').get(validate(listProducts), controller.list);
 router.route('/listdesc').get(validate(listProducts), controller.listdesc);
 router.route('/listasc').get(validate(listProducts), controller.listasc);
-router.route('/list/:id').get(controller.get);
+router.route('/list/:id').get(authorize(LOGGED_USER),controller.get);
 router.route('/create').post(validate(createProduct), controller.add);
 router.route('update/:id').patch(validate(updateProduct), controller.update)
 router.route('/delete/:id').delete(controller.remove);
+router.route('/listpopulars').get(validate(listProducts), controllerpop.list);
 
 export default router;
