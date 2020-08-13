@@ -11,10 +11,6 @@ const subcategorySchema = new mongoose.Schema(
       trim: true,
       unique: true,
     },
-    characteristics: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Characteristic'
-    }],
     image: {
       type: String,
       required: true,
@@ -28,8 +24,19 @@ const subcategorySchema = new mongoose.Schema(
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Category'
-    }
-
+    },
+    characteristics:[{
+      name:{
+        type:String,
+        required:true,
+      },
+      type:{
+        type:String,
+        enum:['filed' ,'select'],
+        required:true
+      },
+      options:[String],
+    }]
   }
 );
 subcategorySchema.method({

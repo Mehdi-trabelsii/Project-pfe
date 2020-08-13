@@ -7,9 +7,9 @@ const orderSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         },
-        products: [{
+        cart: [{
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Product'
+            ref: 'Cart'
         }],
         adresse: {
             type: String,
@@ -31,7 +31,7 @@ const orderSchema = new mongoose.Schema(
 orderSchema.method({
     transform() {
         const transformed = {};
-        const fields = ['_id', 'user', 'products', 'adresse', 'date', 'status'];
+        const fields = ['_id', 'user', 'cart', 'adresse', 'date', 'status'];
 
         fields.forEach((field) => {
             (transformed)[field] = this[field];

@@ -18,7 +18,10 @@ export async function add(req, res, next) {
 
         let cart = await Cart.findOne({ user: user._id })
         if (!cart) {
-            cart = await new Cart({ user: user._id, products: req.body.products }).save()
+            cart = await new Cart({ user: user._id, products: req.body.products}).save()
+            console.log(cart.calcultotal())
+            cart.total = cart.calcultotal() ;
+            await cart.update();
             return cart
         }
         let { products } = req.body
@@ -37,7 +40,7 @@ export async function add(req, res, next) {
         }
         if (cart.products) {
             products = [...cart.products, ...products]
-        }
+            total = cart.calcultotal() }
         console.log(cart._id);
         await cart.update({ products })
         return await Cart.findById(cart._id)

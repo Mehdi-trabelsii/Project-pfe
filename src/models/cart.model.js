@@ -13,13 +13,18 @@ const cartSchema = new mongoose.Schema(
             },
             quantity: Number,
         }],
+        total:{
+            type:Number,
+            default:0,
+        }
+        
     },
 
 );
 cartSchema.method({
     transform() {
         const transformed = {};
-        const fields = ['_id', 'user', 'products'];
+        const fields = ['_id', 'user', 'products','total'];
 
         fields.forEach((field) => {
             (transformed)[field] = this[field];
@@ -27,6 +32,13 @@ cartSchema.method({
 
         return transformed;
     },
+    calcultotal(){
+        let result ;
+        for (let i =0 ; i <this.products.length ; i++){
+            result = result + (this.products[i].product.price * this.products[i].quantity);
+             return result;
+        }
+    }
 
 })
 
