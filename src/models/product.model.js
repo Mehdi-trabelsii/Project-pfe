@@ -41,8 +41,17 @@ const productSchema = new mongoose.Schema(
             maxlength: 128,
         },
         promotion: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Promotion',
+            reduction:{
+                type:Number,
+            },
+            datestart:{
+                type:Date,
+                min:Date.now()
+            },
+            datefin:{
+                type:Date,
+                min:Date.now()
+            }
         },
         // model:{
         //     type:mongoose.Schema.Types.ObjectId,
@@ -66,9 +75,6 @@ const productSchema = new mongoose.Schema(
             value:String
         }]
     },
-
-
-
 );
 
 productSchema.virtual('overallRating').get(function () {

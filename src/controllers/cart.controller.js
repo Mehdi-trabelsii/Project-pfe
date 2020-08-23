@@ -1,7 +1,6 @@
 import ApiResponse from '../utils/APIResponse';
 import Cart from '../models/cart.model';
 import APIError from '../utils/APIError';
-
 export function get(req, res) {
     return new ApiResponse(res).success(async () => {
         const { user } = req.locals;
@@ -10,17 +9,14 @@ export function get(req, res) {
         return cart.transform();
     });
 }
-
 export async function add(req, res, next) {
-
     return new ApiResponse(res).create(async () => {
         const { user } = req.locals;
-
         let cart = await Cart.findOne({ user: user._id })
         if (!cart) {
-            cart = await new Cart({ user: user._id, products: req.body.products}).save()
+            cart = await new Cart({ user: user._id, products: req.body.products }).save()
             console.log(cart.calcultotal())
-            cart.total = cart.calcultotal() ;
+            cart.total = cart.calcultotal();
             await cart.update();
             return cart
         }
@@ -30,7 +26,6 @@ export async function add(req, res, next) {
                 return product.product.toString() === cartProduct.product.toString()
             })
         )
-
         if (isExist) {
             throw new APIError({
                 status: 'BAD_REQUEST',
@@ -40,7 +35,8 @@ export async function add(req, res, next) {
         }
         if (cart.products) {
             products = [...cart.products, ...products]
-            total = cart.calcultotal() }
+            total = cart.calcultotal()
+        }
         console.log(cart._id);
         await cart.update({ products })
         return await Cart.findById(cart._id)
@@ -48,17 +44,14 @@ export async function add(req, res, next) {
 }
 export function deleteprod(req, res, next) {
     return new ApiResponse(res).success(
-
     )
 }
-
 export function update(req, res, next) {
     new ApiResponse(res).success(
         async () => {
-
-            const updatedcart = await Cart.findByIdAndUpdate(req.params.id, omit(req.body), { new: true });
-
-            return (await updatedcart).transform();
+            const { user } = req.locals;
+            const updatedcart = await Cart.findOneAndUpdate({ user: user._id }, req.body, { new: true });
+            return updatedcart.transform();
         },
     );
 }

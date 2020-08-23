@@ -10,6 +10,7 @@ import reviewRoutes from './review.route';
 import orderRoutes from './order.route';
 import replyRoutes from './reply.route';
 import cartRoutes from './cart.route';
+import assistanceRoutes from './assistance.route';
 
 import uploadIcon from '../utils/helpers';
 import path from 'path';
@@ -32,6 +33,7 @@ router.use('/categories', categoryRoutes);
 router.use('/subcategories', subcategoryRoutes);
 router.use('/users', userRoutes);
 router.use('/auth', authRoutes);
+router.use('/assistance', assistanceRoutes);
 
 
 router.post('/upload', uploadIcon.single("image"), uploadcontroller);
