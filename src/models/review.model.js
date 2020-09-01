@@ -21,6 +21,16 @@ const reviewSchema = new mongoose.Schema({
     replies: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Reply'
+    }],
+    reports:[{
+        user:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref:'User'
+        },
+        type:{
+            type: String,
+            enum: [' langage injurieux', 'Critique impartiale', 'Spam','Publicité']
+        },
     }]
 },
 );
@@ -31,7 +41,7 @@ reviewSchema.pre('save', function (next) {
 reviewSchema.method({
     transform() {
         const transformed = {};
-        const fields = ['_id', 'product', 'postedOn', 'rating', 'review', 'user', 'replies', 'usern'];
+        const fields = ['_id', 'product', 'postedOn', 'rating', 'review', 'user', 'replies', 'usern','reports'];
 
         fields.forEach((field) => {
             (transformed)[field] = this[field];

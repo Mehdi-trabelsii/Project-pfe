@@ -50,6 +50,16 @@ export async function add(req, res, next) {
   res.status(201);
   res.json(review);
 }
+export function report(req,res,next) {
+  return new ApiResponse(res).create(async () => { 
+    console.log("slm");
+    const { user } = req.locals;
+    const review = Review.findById(req.params.id);
+    
+    return review;
+});
+
+}
 
 export function remove(req, res, next) {
   const review = Reply.findById(req.params.id);

@@ -11,6 +11,7 @@ import orderRoutes from './order.route';
 import replyRoutes from './reply.route';
 import cartRoutes from './cart.route';
 import assistanceRoutes from './assistance.route';
+import recommandedRoutes from './recommanded.route';
 
 import uploadIcon from '../utils/helpers';
 import path from 'path';
@@ -30,6 +31,7 @@ router.use('/replies', replyRoutes);
 router.use('/cart', cartRoutes);
 router.use('/order', orderRoutes);
 router.use('/categories', categoryRoutes);
+router.use('/recommanded', recommandedRoutes);
 router.use('/subcategories', subcategoryRoutes);
 router.use('/users', userRoutes);
 router.use('/auth', authRoutes);

@@ -101,6 +101,9 @@ productSchema.method({
     },
 
 })
+productSchema.pre('find',() => {
+    console.log('3arfi seyes aal 7did');
+});
 productSchema.statics = {
     checkDuplicateLabel(error) {
         if (error.name === 'MongoError' && error.code === 11000) {

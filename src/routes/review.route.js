@@ -6,7 +6,7 @@ import { createreview } from '../validations/review.validation';
 const router = express.Router();
 
 router.route('/product/:id').post(authorize(LOGGED_USER), validate(createreview), controller.add);
-
+router.route('/report/:id').patch(authorize(LOGGED_USER),controller.report);
 router.route('/list/:id').get(controller.list);
 router.route('/delete/:id').delete(authorize(LOGGED_USER), controller.remove)
 
