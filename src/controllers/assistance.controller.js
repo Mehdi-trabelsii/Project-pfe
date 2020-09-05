@@ -1,6 +1,6 @@
 import ApiResponse from '../utils/APIResponse';
 import Assistance from '../models/assistance.model';
-import APIError from '../utils/APIError';
+
 
 
 export function get(req, res) {

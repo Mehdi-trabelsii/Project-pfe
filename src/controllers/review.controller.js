@@ -3,7 +3,6 @@ import ApiResponse from '../utils/APIResponse';
 import httpStatus from 'http-status';
 import Product from '../models/product.model';
 
-
 export function get(req, res) {
   console.log("this is working");
   return new ApiResponse(res).success(() => {
@@ -11,6 +10,7 @@ export function get(req, res) {
     return review;
   });
 }
+
 export function list(req, res, next) {
   return new ApiResponse(res).success(
     async () => {

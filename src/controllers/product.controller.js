@@ -119,7 +119,7 @@ export function update(req, res, next) {
 
       const updatedproduct = await Product.findByIdAndUpdate(req.params.id, omit(req.body), { new: true });
 
-      return (await updatedproduct.populate("category", "promotion")).transform();
+      return (await updatedproduct.populate("category")).transform();
     },
     (error) => next(Product.checkDuplicateLabel(error)),
   );

@@ -16,7 +16,6 @@ export function list(req,res,next){
             else {
                 categories [popular.product.category] += 1;
             }
-
         })
         const categoriesKeys = Object.keys(categories).sort((a,b) =>{
             return categories[b] - categories [a] ;

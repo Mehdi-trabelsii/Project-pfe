@@ -70,7 +70,7 @@ const productSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Review'
         }],
-        charactestics:[{
+        characteristics:[{
             label:String,
             value:String
         }]
@@ -101,9 +101,6 @@ productSchema.method({
     },
 
 })
-productSchema.pre('find',() => {
-    console.log('3arfi seyes aal 7did');
-});
 productSchema.statics = {
     checkDuplicateLabel(error) {
         if (error.name === 'MongoError' && error.code === 11000) {
@@ -127,7 +124,7 @@ productSchema.statics = {
             .sort({ CreatedAt: -1 })
             .skip(perPage * (page - 1))
             .limit(perPage)
-            .populate("promotion")
+           
             .exec();
     },
     async listdesc({ page = 1, perPage = 30, ...rest }) {
@@ -140,7 +137,8 @@ productSchema.statics = {
             .sort({ price: -1 })
             .skip(perPage * (page - 1))
             .limit(perPage)
-            .populate("promotion")
+            
+        
             .exec();
     },
     async listasc({ page = 1, perPage = 30, ...rest }) {
@@ -153,7 +151,7 @@ productSchema.statics = {
             .sort({ price: 1 })
             .skip(perPage * (page - 1))
             .limit(perPage)
-            .populate("promotion")
+            
             .exec();
     }
 }

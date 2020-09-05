@@ -5,7 +5,7 @@ import ApiResponse from '../utils/APIResponse';
 
 export function get(req, res) {
     return new ApiResponse(res).success(() => {
-        const order = Order.findById(req.params.id).populate('products.product');
+        const order = Order.findById(req.params.id).populate('cart');
         console.log(order)
         return order;
     });
