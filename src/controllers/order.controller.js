@@ -5,7 +5,7 @@ import ApiResponse from '../utils/APIResponse';
 
 export function get(req, res) {
     return new ApiResponse(res).success(() => {
-        const order = Order.findById(req.params.id).populate('cart');
+        const order = Order.findById(req.params.id).populate('cart.products');
         console.log(order)
         return order;
     });
@@ -14,7 +14,8 @@ export function get(req, res) {
 export function list(req, res, next) {
     return new ApiResponse(res).success(
         async () => {
-            const orders = await Order.list(req.query);
+            
+            const orders = await Order.find(req.query).populate('cart.products.product');
             console.log(orders);
             const transformedOrders = orders.map(order => order.transform());
             return transformedOrders;
@@ -28,7 +29,7 @@ export function create(req, res, next) {
         async () => {
             const { user } = req.locals;
             let cart = await Cart.findOne({ user: user._id })
-            var order = new Order({ cart: cart, date: Date.now(), adresse: req.body.adresse })
+            var order = new Order({ products: cart.products, date: Date.now(), adresse: req.body.adresse })
             await cart.update({ products: [] })
             console.log(cart)
             await order.save()

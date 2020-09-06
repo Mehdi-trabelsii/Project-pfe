@@ -1,15 +1,19 @@
 import mongoose, { Model, Document, mongo } from 'mongoose';
 import { list, get } from '../utils/helpers';
 import cart from './cart.model';
+import { array } from '@hapi/joi';
 const orderSchema = new mongoose.Schema(
     {
         user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         },
-        cart: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Cart'
+        products: [{
+            product: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Product',
+            },
+            quantity: Number,
         }],
         adresse: {
             type: String,
@@ -30,7 +34,7 @@ const orderSchema = new mongoose.Schema(
 orderSchema.method({
     transform() {
         const transformed = {};
-        const fields = ['_id', 'user', 'cart', 'adresse', 'date', 'status'];
+        const fields = ['_id', 'user', 'products', 'adresse', 'date', 'status'];
 
         fields.forEach((field) => {
             (transformed)[field] = this[field];
