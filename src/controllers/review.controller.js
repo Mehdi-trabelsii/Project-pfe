@@ -50,6 +50,7 @@ export async function add(req, res, next) {
   res.status(201);
   res.json(review);
 }
+
 export function report(req,res,next) {
   return new ApiResponse(res).create(async () => { 
     console.log("slm");

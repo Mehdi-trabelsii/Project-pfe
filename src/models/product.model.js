@@ -73,7 +73,12 @@ const productSchema = new mongoose.Schema(
         characteristics:[{
             label:String,
             value:String
-        }]
+        }],
+        rating : {
+            type:Number,
+            min: 1,
+            max :5
+        }
     },
 );
 
@@ -91,7 +96,7 @@ productSchema.virtual('overallRating').get(function () {
 productSchema.method({
     transform() {
         const transformed = {};
-        const fields = ['_id', 'label', 'price', 'quantity', 'credit', 'description', 'images', 'marque', 'subcategory', 'promotion', 'category', 'reviews'];
+        const fields = ['_id', 'label', 'price', 'quantity', 'credit', 'description', 'images', 'marque', 'subcategory', 'promotion', 'category', 'reviews','rating'];
 
         fields.forEach((field) => {
             (transformed)[field] = this[field];
