@@ -124,3 +124,18 @@ export function update(req, res, next) {
     (error) => next(Product.checkDuplicateLabel(error)),
   );
 }
+export function search (req,res,next){
+  new ApiResponse(res).success(
+    async() => {
+      var s = req.query.s
+      return await Product.find({
+        label:{
+          $regex : new RegExp(s)
+        }
+      },{
+        _id:0,
+        __v:0
+      }).limit(10);
+    }
+  )
+}

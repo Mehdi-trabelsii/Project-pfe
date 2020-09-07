@@ -11,6 +11,7 @@ router.route('/listPerSubCat/:id').get(validate(listProducts), controller.listpe
 router.route('/list').get(validate(listProducts), controller.list);
 router.route('/listdesc').get(validate(listProducts), controller.listdesc);
 router.route('/listasc').get(validate(listProducts), controller.listasc);
+router.route('/search').get(controller.search);
 router.route('/list/:id').get(authorize(LOGGED_USER,{redirect:false}),controller.get);
 router.route('/create').post(validate(createProduct), controller.add);
 router.route('update/:id').patch(validate(updateProduct), controller.update)
