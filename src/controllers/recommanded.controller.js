@@ -4,9 +4,11 @@ import Product from '../models/product.model';
 import category from '../models/category.model';
 
 export function list(req,res,next){
-    new ApiResponse(res).success( async () =>{
+    new ApiResponse(res).success( 
+        async () =>{
         const {user} = req.locals;
         const populars = await Popular.find({users : user._id}).populate('product');
+        console.log(populars)
         const categories = {} ;
         populars.forEach(popular =>{
             if(!categories [popular.product.category])
@@ -26,7 +28,9 @@ export function list(req,res,next){
         const products = await Promise.all(categoriesKeys.map((category) => {
         return Product.find({category:category}).sort({createdAt : -1}).limit((Math.round(categories[category]*20)/categoriesNumber));
         }));         
-        return products;
+        return products; 
+    
+
     })
 
 }

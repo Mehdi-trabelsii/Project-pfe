@@ -14,7 +14,7 @@ export function get(req, res) {
 export function list(req, res, next) {
     return new ApiResponse(res).success(
         async () => {
-            
+
             const orders = await Order.find(req.query).populate('cart.products.product');
             console.log(orders);
             const transformedOrders = orders.map(order => order.transform());
@@ -36,4 +36,12 @@ export function create(req, res, next) {
             return order;
         }
     )
+}
+export function update(req, res, next) {
+    return new ApiResponse(res).success(
+        async () => {
+            const updatedorder = await Order.findByIdAndUpdate(req.params.id, omit(req.body), { new: true });
+            return (await updatedorder).transform();
+        },
+    );
 }

@@ -5,6 +5,6 @@ import validate from '../middlewares/validation';
 
 const router = express.Router();
 
-router.route('/list/').get(authorize(LOGGED_USER),controller.list);
+router.route('/list/').get(authorize(LOGGED_USER,{redirect:false}),controller.list);
 
 export default router;
