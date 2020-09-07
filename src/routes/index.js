@@ -10,6 +10,7 @@ import reviewRoutes from './review.route';
 import orderRoutes from './order.route';
 import replyRoutes from './reply.route';
 import cartRoutes from './cart.route';
+import favoriteRoutes from './favorite.route';
 import assistanceRoutes from './assistance.route';
 import recommandedRoutes from './recommanded.route';
 
@@ -29,6 +30,7 @@ router.use('/products', productRoutes);
 router.use('/reviews', reviewRoutes);
 router.use('/replies', replyRoutes);
 router.use('/cart', cartRoutes);
+router.use('/favorite', favoriteRoutes);
 router.use('/order', orderRoutes);
 router.use('/categories', categoryRoutes);
 router.use('/recommanded', recommandedRoutes);
